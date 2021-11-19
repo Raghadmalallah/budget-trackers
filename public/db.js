@@ -21,7 +21,7 @@ request.onsuccess = ({ target }) => {
   }
 };
 
-request.onerror = function(event) {
+request.onerror = function (event) {
   console.log("Woops! " + event.target.errorCode);
 };
 
@@ -37,8 +37,19 @@ function checkDatabase() {
   // TODO: this function should check for any saved transactions and post them
   // all to the database. Delete the transactions from IndexedDB if the post
   // request is successful.
-  
+  const transaction = db.transaction("pending", "readonly");
+  const store = transaction.objectStore("pending");
+  const getAll = store.getAll();
+
+  getAll.onsuccess = () => {
+    if (getAll.result.length > 0) {
+      fetch("/api/transaction/bulk", {
+        method: "POST",
+        body: JSON.stringify(getAll.result),
+      });
+    }
+  };
 }
 
 // listen for app coming back online
-window.addEventListener('online', checkDatabase);
+window.addEventListener("online", checkDatabase);
