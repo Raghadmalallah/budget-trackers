@@ -18,9 +18,6 @@ The app will keep track of your expenses and be able to use it while traveling o
 
 click here to open the app [https://budget-tracker-riri.herokuapp.com/]
 
-## youtube
-### A walkthrough video that demonstrates the functionality of 
-
 </br>
 
 ## Contact
